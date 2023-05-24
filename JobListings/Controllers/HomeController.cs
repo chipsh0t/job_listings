@@ -15,6 +15,7 @@ namespace JobListings.Controllers
 
         public IActionResult Index()
         {
+            ViewData["isHome"] = true;
             return View();
         }
 
