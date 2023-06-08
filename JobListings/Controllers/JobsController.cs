@@ -7,6 +7,9 @@ namespace JobListingsWeb.Controllers
 {
     public class JobsController : Controller
     {
+
+        private List<string> _locations;
+        private List<string> _categories;
         //ublic IActionResult Index()
         //
         //   return View();

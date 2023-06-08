@@ -31,5 +31,7 @@ namespace JobListingsShared.Models
         [Range(1.0f, float.MaxValue, ErrorMessage = "Monthly salary has to be positive !")]
         public float Monthlysalary { get; set; }
 
+        public DateTime? Created { get; set; }
+
     }
 }
