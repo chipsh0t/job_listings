@@ -3,27 +3,16 @@
 	ViewBag.BannerTitle = "Add new listing !";
 }
 
+
 @await Html.PartialAsync("Banner")
 <div class="d-flex justify-content-center align-items-center my-3">
 	<div class="row w-100">
 		<div class="mx-auto col-sm-12 col-md-8 col-sm-6">
 			<form action="#">
+				@Html.AntiForgeryToken()
 				<div class="mt-10">
 					<input type="text" name="first_name" placeholder="Job name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required class="single-input" autocomplete="off">
 				</div>
-				@*<div class="mt-10">
-					<input type="text" name="last_name" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required class="single-input">
-				</div>
-				<div class="mt-10">
-					<input type="text" name="last_name" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required class="single-input">
-				</div>
-				<div class="mt-10">
-					<input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'" required class="single-input">
-				</div>
-				<div class="input-group-icon mt-10">
-					<div class="icon"><i class="fa fa-thumb-tack" aria-hidden="true"></i></div>
-					<input type="text" name="address" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" required class="single-input">
-				</div>*@
 				<div class="input-group-icon mt-10">
 					<div class="icon"><i class="fa fa-filter" aria-hidden="true"></i></div>
 					<div class="form-select" id="default-select">
@@ -56,22 +45,6 @@
 				<div class="mt-10">
 					<textarea class="single-textarea" placeholder="Requirements" onfocus="this.placeholder = ''" onblur="this.placeholder= 'Requirements'" required></textarea>
 				</div>
-				<!-- For Gradient Border Use -->
-				<!-- <div class="mt-10">
-					<div class="primary-input">
-						<input id="primary-input" type="text" name="first_name" placeholder="Primary color" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Primary color'">
-						<label for="primary-input"></label>
-					</div>
-				</div> -->
-				@*<div class="mt-10">
-					<input type="text" name="first_name" placeholder="Primary color" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Primary color'" required class="single-input-primary">
-				</div>
-				<div class="mt-10">
-					<input type="text" name="first_name" placeholder="Accent color" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Accent color'" required class="single-input-accent">
-				</div>
-				<div class="mt-10">
-					<input type="text" name="first_name" placeholder="Secondary color" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Secondary color'" required class="single-input-secondary">
-				</div>*@
 				<div class="mt-10 input-group-icon">
 					<div class="icon"><i class="fa fa-usd" aria-hidden="true"></i></div>
 					<input type="number" min="1.0" placeholder="Monthly salary" class="single-input d-inline" autocomplete="off" />

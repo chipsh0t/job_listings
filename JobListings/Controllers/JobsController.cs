@@ -2,32 +2,26 @@
 using JobListingsShared.Models;
 using JobListingsWeb.Models;
 using System.Net.Http.Headers;
+using JobListingsBusiness.Services.Contracts;
 
 namespace JobListingsWeb.Controllers
 {
     public class JobsController : Controller
     {
 
-        private List<string> _locations;
-        private List<string> _categories;
-        //ublic IActionResult Index()
-        //
-        //   return View();
-        //
+        private IEnumerable<string> _locations = new List<string>{"Tbilisi", "Kutaisi", "Batumi", "Gori", "Zugdidi"};
+        private IEnumerable<string> _categories = new List<string> {"Accounting", "Development", "Technology", "Media and News", "Medical", "Government"};
+        private IJobsService _jobsService;
 
-        public IActionResult ListJobs()
-        {
-            //List<JobViewModel> jobs = new List<JobViewModel>{ 
-            //    new JobViewModel { Id = 1, Name = "test1"},
-            //    new JobViewModel { Id = 2, Name = "test2"}
-            //};
-
-            return View();
-        }
-
-        public IActionResult DetailedDescription() 
+        public JobsController(IJobsService jobsService) 
         { 
-            return View();
+            _jobsService = jobsService;
+        }
+        
+        public IActionResult DetailedDescription(int id) 
+        { 
+            var result = _jobsService.GetJobByIdAsync(id);
+            return View(result);
         }
 
         [HttpGet]
@@ -36,6 +30,17 @@ namespace JobListingsWeb.Controllers
             return View();
         }
 
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateJobListing(Job job) 
+        {
+            if (ModelState.IsValid)
+            {
+                //save valid posting
+                _jobsService.CreateJobAsync(job);
+                return RedirectToAction("Index","HomeController");
+            }
+            return View();
+        }
     }
 }
