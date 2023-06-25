@@ -19,4 +19,12 @@
     <ProjectReference Include="..\JobListingsShared\JobListingsShared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Jobs\DetailedDescription.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Jobs\DetailedDescription.cshtml" />
+  </ItemGroup>
+
 </Project>

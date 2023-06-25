@@ -6,6 +6,8 @@ using JobListingsBusiness.Services;
 using JobListingsBusiness.Services.Contracts;
 using JobListingsDAL.Context;
 using Microsoft.EntityFrameworkCore;
+using JobListingsShared.Services;
+using JobListingsShared.Services.Contracts;
 //using Microsoft.EntityFrameworkCore.Design;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IJobsRepository, JobsRepository>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IJobsService, JobsService>();
+builder.Services.AddScoped<ILookupService, LookupService>();
 
 //adding db context
 builder.Services.AddDbContext<JobListingsDbContext>(options =>

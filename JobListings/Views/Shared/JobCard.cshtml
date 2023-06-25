@@ -1,0 +1,26 @@
+﻿@model JobListingsWeb.Models.JobViewModel
+
+<div class="single-post d-flex flex-row">
+	<div class="thumb mr-4">
+		<img src="~/img/post.png" alt="">
+		<ul class="tags">
+			<li>@Model.Category</li>
+		</ul>
+	</div>
+	<div class="details">
+		<div class="title d-flex flex-row justify-content-between mb-3">
+			<div class="titles">
+				<a asp-controller="Jobs" asp-action="DetailedDescription" asp-route-id="@Model.Id"><h4>@Model.Name</h4></a>
+			</div>
+			<ul class="btns">
+				<li><a href="#"><span class="lnr lnr-heart"></span></a></li>
+				<li><a href="#">Apply</a></li>
+			</ul>
+		</div>
+		<p>
+			@Model.ShortDescription
+		</p>
+		<p class="address"><span class="lnr lnr-map"></span>@Model.Location</p>
+		<p class="address"><span class="lnr lnr-database"></span>@Model.MonthlySalary</p>
+	</div>
+</div>

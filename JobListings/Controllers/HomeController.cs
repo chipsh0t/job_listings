@@ -1,7 +1,9 @@
 ﻿using JobListings.Models;
 using JobListingsBusiness.Services.Contracts;
+using JobListingsWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using JobListingsShared.Services.Contracts;
 
 namespace JobListings.Controllers
 {
@@ -9,17 +11,23 @@ namespace JobListings.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IJobsService _jobsService;
+        private ILookupService _lookupsService;
 
-        public HomeController(ILogger<HomeController> logger, IJobsService jobService)
+        public HomeController(ILogger<HomeController> logger, IJobsService jobService, ILookupService lookupService)
         {
-            _logger = logger;
+            _logger = logger;   
             _jobsService = jobService;
+            _lookupsService = lookupService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewData["isHome"] = true;
-            return View();
+            ViewBag.Locations = _lookupsService.Locations;
+            ViewBag.Categories = _lookupsService.Categories;
+            var job_list = await _jobsService.ListJobsAsync();
+            var job_view_models = job_list.Select(job => new JobViewModel(job));
+            return View(job_view_models);
         }
 
         public IActionResult Privacy()

@@ -1,0 +1,31 @@
+﻿@model JobListingsWeb.Models.JobViewModel
+@{
+    ViewBag.BannerTitle = "Job Details !";
+}
+
+@await Html.PartialAsync("Banner")
+<!-- Start post Area -->
+<section class="post-area section-gap">
+	<div class="container">
+		<div class="row justify-content-center d-flex">
+			<div class="col-lg-8 post-list">
+				<div class="single-post d-flex flex-row">
+					@await Html.PartialAsync("JobCard", Model)
+				</div>
+				<div class="single-post job-details">
+					<h4 class="single-title">Whom we are looking for</h4>
+					<p>@Model.Requirements</p>
+				</div>
+				
+				<div class="single-post job-experience">
+					<h4 class="single-title">Job Description</h4>
+					<p>@Model.Description</p>
+				</div>
+				<div class="single-post job-experience">
+					<p>Posted on: @Model.Created.ToString("dd.MM.yyyy")</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End post Area -->

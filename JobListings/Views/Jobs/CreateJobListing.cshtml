@@ -8,48 +8,47 @@
 <div class="d-flex justify-content-center align-items-center my-3">
 	<div class="row w-100">
 		<div class="mx-auto col-sm-12 col-md-8 col-sm-6">
-			<form action="#">
+			<form asp-action="CreateJobListing" asp-controller="Jobs" method="post">
 				@Html.AntiForgeryToken()
+				<div asp-validation-summary="All" class="text-danger"></div>
 				<div class="mt-10">
-					<input type="text" name="first_name" placeholder="Job name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required class="single-input" autocomplete="off">
+					<input asp-for="Name" type="text" name="Name" placeholder="Job name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Job name'" required class="single-input" autocomplete="off">
 				</div>
 				<div class="input-group-icon mt-10">
 					<div class="icon"><i class="fa fa-filter" aria-hidden="true"></i></div>
 					<div class="form-select" id="default-select">
-						<select>
-							<option value="1">Category</option>
-							<option value="1">Dhaka</option>
-							<option value="1">Dilli</option>
-							<option value="1">Newyork</option>
-							<option value="1">Islamabad</option>
+						<select asp-for="Category">
+							@foreach(var category in ViewBag.Categories)
+							{
+								<option value="@category">@category</option>
+							}
 						</select>
 					</div>
 				</div>
 				<div class="input-group-icon mt-10">
 					<div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
 					<div class="form-select" id="default-select">
-						<select>
-							<option value="1">Location</option>
-							<option value="1">Bangladesh</option>
-							<option value="1">India</option>
-							<option value="1">England</option>
-							<option value="1">Srilanka</option>
+						<select asp-for="Location">
+							@foreach (var location in ViewBag.Locations)
+							{
+								<option value="@location">@location</option>
+							}
 						</select>
 					</div>
 				</div>
 
 				<div class="mt-10">
-					<textarea class="single-textarea" placeholder="Description" onfocus="this.placeholder = ''" onblur="this.placeholder= 'Description'" required></textarea>
+					<textarea asp-for="Description" class="single-textarea" placeholder="Description" onfocus="this.placeholder = ''" onblur="this.placeholder= 'Description'" required></textarea>
 				</div>
 
 				<div class="mt-10">
-					<textarea class="single-textarea" placeholder="Requirements" onfocus="this.placeholder = ''" onblur="this.placeholder= 'Requirements'" required></textarea>
+					<textarea asp-for="Requirements" class="single-textarea" placeholder="Requirements" onfocus="this.placeholder = ''" onblur="this.placeholder= 'Requirements'" required></textarea>
 				</div>
 				<div class="mt-10 input-group-icon">
 					<div class="icon"><i class="fa fa-usd" aria-hidden="true"></i></div>
-					<input type="number" min="1.0" placeholder="Monthly salary" class="single-input d-inline" autocomplete="off" />
+					<input asp-for="MonthlySalary" type="number" min="1.0" placeholder="Monthly salary" class="single-input d-inline" autocomplete="off" />
 				</div>
-				<input type="submit" class="genric-btn primary radius my-3" value="Create"/>
+				<input type="submit" class="genric-btn primary radius my-4" value="Create"/>
 			</form>
 		</div>
 	</div>
