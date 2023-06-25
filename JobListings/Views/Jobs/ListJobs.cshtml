@@ -1,14 +1,32 @@
 ﻿@model IEnumerable<JobListingsWeb.Models.JobViewModel> 
+@{
+	ViewBag.BannerTitle = "Look around !";
+}
 
+@await Html.PartialAsync("Banner");
+<section class="post-area section-gap">
+	<div class="container">
+		<div class="row justify-content-center d-flex">
+			<div class="col-lg-8 post-list">
+				@foreach(var job_listing in Model)
+				{
+					<div class="single-post d-flex flex-row">
+						@await Html.PartialAsync("JobCard", job_listing)
+					</div>
+				}
+			</div>
+		</div>
+	</div>
 
-@*@foreach (var item in Model)
-{
-    <div class="py-5">
-        <p>
-            @item.Id
-        </p>
-        <p>
-            @item.Name
-        </p>
-    </div>
-}*@
+	<div class="container w-100 d-flex justify-content-center align-items-center">
+		<a class="btn btn-primary m-2" role="button" asp-controller="Jobs" asp-action="ListJobs"
+			asp-route-page="@(ViewBag.CurrentPage<=1?1:ViewBag.CurrentPage-1)">
+			Previous
+		</a>
+		<a class="btn btn-primary m-2" role="button" asp-controller="Jobs" asp-action="ListJobs"
+			asp-route-page="@(ViewBag.CurrentPage>=ViewBag.TotalPages?ViewBag.TotalPages:ViewBag.CurrentPage+1)">
+			Next
+		</a>
+	</div>
+
+</section>

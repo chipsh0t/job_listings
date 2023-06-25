@@ -21,9 +21,11 @@ namespace JobListingsDAL.Repositories
 			_context = context;
 		}
 
-		public async Task<IQueryable<Job>> ListJobsAsync() 
+		public async Task<(IQueryable<Job> job_listings_queriable, int total_pages)> ListJobsAsync(int listings_max_amount, int page_number) 
 		{
-			return await Task.FromResult(_context.Jobs);
+			int total_pages = (int)Math.Ceiling((decimal)_context.Jobs.Count() / listings_max_amount);
+			var job_listings = _context.Jobs.Skip(listings_max_amount * (page_number - 1)).Take(listings_max_amount);
+			return (await Task.FromResult(job_listings),total_pages);
 		}
 
 		public async Task<Job> GetByIdAsync(int id) 

@@ -12,6 +12,7 @@ namespace JobListingsWeb.Controllers
 
         private IJobsService _jobsService;
         private ILookupService _lookupService;
+        private const int _page_size = 10;
 
         public JobsController(IJobsService jobsService, ILookupService lookupService) 
         { 
@@ -23,6 +24,15 @@ namespace JobListingsWeb.Controllers
         {
             ViewBag.Locations = _lookupService.Locations;
             ViewBag.Categories = _lookupService.Categories;
+        }
+
+        public async Task<IActionResult> ListJobs(int page) 
+        {
+            page = page<= 0 ? 1 : page;
+			var result=await _jobsService.ListJobsAsync(_page_size, page);
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = result.total_pages;
+            return View(result.jobs_list.Select(job => new JobViewModel(job)));
         }
 
         public async Task<IActionResult> DetailedDescription(int id) 
@@ -51,5 +61,5 @@ namespace JobListingsWeb.Controllers
             GetLocationsAndCategories();
             return View();
         }
-    }
+	}
 }

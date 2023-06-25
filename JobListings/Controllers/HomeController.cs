@@ -13,6 +13,8 @@ namespace JobListings.Controllers
         private IJobsService _jobsService;
         private ILookupService _lookupsService;
 
+        private const int _job_listings_amount = 5;
+
         public HomeController(ILogger<HomeController> logger, IJobsService jobService, ILookupService lookupService)
         {
             _logger = logger;   
@@ -25,7 +27,7 @@ namespace JobListings.Controllers
             ViewData["isHome"] = true;
             ViewBag.Locations = _lookupsService.Locations;
             ViewBag.Categories = _lookupsService.Categories;
-            var job_list = await _jobsService.ListJobsAsync();
+            var (job_list,_) = await _jobsService.ListJobsAsync(_job_listings_amount, 1);
             var job_view_models = job_list.Select(job => new JobViewModel(job));
             return View(job_view_models);
         }
