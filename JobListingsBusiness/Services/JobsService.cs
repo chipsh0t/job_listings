@@ -21,6 +21,12 @@ namespace JobListingsBusiness.Services
 			return res;
 		}
 
+		public async Task<IEnumerable<Job>> GetJobByNameAsync(string name) 
+		{ 
+			var jobs_list  = await _unitOfWork.JobsRepository.GetByNameAsync(name);
+			return jobs_list.ToList();
+		}
+
 		//listig with pagination
 		public async Task<(IEnumerable<Job> , int )> ListJobsAsync(int listings_max_amount, int page_number=1) 
 		{

@@ -33,6 +33,14 @@ namespace JobListingsDAL.Repositories
 			return await Task.FromResult(_context.Jobs.First(job => job.Id == id));
 		}
 
+		public async Task<IQueryable<Job>> GetByNameAsync(string name) 
+		{
+			var jobs_list = _context.Jobs
+							.Where(job => EF.Functions.Like(job.Name,$"%{name}%"));
+
+			return await Task.FromResult(jobs_list);						
+		}
+
 		public Task CreateJob(Job job) 
 		{ 
 			job.Created = DateTime.Now;

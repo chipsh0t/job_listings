@@ -35,6 +35,13 @@ namespace JobListingsWeb.Controllers
             return View(result.jobs_list.Select(job => new JobViewModel(job)));
         }
 
+        public async Task<IActionResult> SearchByName(string search) 
+        {
+            var results = await _jobsService.GetJobByNameAsync(search);
+            ViewBag.JobName = search;
+            return View(results.Select(job => new JobViewModel(job)));
+        }
+
         public async Task<IActionResult> DetailedDescription(int id) 
         { 
             var result = new JobViewModel(await _jobsService.GetJobByIdAsync(id));

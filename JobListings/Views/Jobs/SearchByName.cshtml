@@ -1,0 +1,20 @@
+﻿@model IEnumerable<JobListingsWeb.Models.JobViewModel>
+@{
+    ViewBag.BannerTitle = $"Results for: {ViewBag.JobName} !";
+}
+
+@await Html.PartialAsync("Banner");
+<section class="post-area section-gap">
+	<div class="container">
+		<div class="row justify-content-center d-flex">
+			<div class="col-lg-8 post-list">
+				@foreach (var job_listing in Model)
+				{
+					<div class="single-post d-flex flex-row">
+						@await Html.PartialAsync("JobCard", job_listing)
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</section>

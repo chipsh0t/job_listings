@@ -10,6 +10,7 @@ namespace JobListingsBusiness.Services.Contracts
 	public interface IJobsService
 	{
 		public Task<Job> GetJobByIdAsync(int id);
+		public Task<IEnumerable<Job>> GetJobByNameAsync(string name);
 		public Task<(IEnumerable<Job>jobs_list,int total_pages)> ListJobsAsync(int listings_max_amount, int page_number);
 		public Task CreateJobAsync(Job job);
 		public Task DeleteJobAsync(int id);
