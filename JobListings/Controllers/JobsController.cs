@@ -4,6 +4,7 @@ using JobListingsWeb.Models;
 using System.Net.Http.Headers;
 using JobListingsBusiness.Services.Contracts;
 using JobListingsShared.Services.Contracts;
+using JobListingsWeb.Filters;
 
 namespace JobListingsWeb.Controllers
 {
@@ -26,6 +27,7 @@ namespace JobListingsWeb.Controllers
             ViewBag.Categories = _lookupService.Categories;
         }
 
+        [LogRequest]
         public async Task<IActionResult> ListJobs(int page) 
         {
             page = page<= 0 ? 1 : page;
@@ -68,5 +70,41 @@ namespace JobListingsWeb.Controllers
             GetLocationsAndCategories();
             return View();
         }
-	}
+
+        [HttpGet]
+        public async Task<IActionResult>UpdateJobListing(int id) 
+        {
+            Job job_to_update = await _jobsService.GetJobByIdAsync(id);
+            GetLocationsAndCategories();
+            return View(job_to_update);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateJobListing(Job job)
+        {
+            if (ModelState.IsValid)
+            {
+				await _jobsService.EditJobAsync(job);
+				return Redirect($"/Jobs/DetailedDescription/{job.Id}");
+			}
+            GetLocationsAndCategories();
+            return View(job);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteJobListing(int id) 
+        {
+            Job job_to_delete = await _jobsService.GetJobByIdAsync(id);
+            return View(job_to_delete); 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteJobListingConfirmed(int id) 
+        {
+            await _jobsService.DeleteJobAsync(id);
+            return RedirectToAction("Index", "Home");
+		}
+    }
 }

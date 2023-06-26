@@ -8,6 +8,7 @@ using JobListingsDAL.Context;
 using Microsoft.EntityFrameworkCore;
 using JobListingsShared.Services;
 using JobListingsShared.Services.Contracts;
+using JobListingsWeb.Middleware;
 //using Microsoft.EntityFrameworkCore.Design;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,8 @@ builder.Services.AddDbContext<JobListingsDbContext>(options =>
 
 var app = builder.Build();
 
+//adding mw
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

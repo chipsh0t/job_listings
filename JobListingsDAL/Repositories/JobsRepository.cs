@@ -58,18 +58,13 @@ namespace JobListingsDAL.Repositories
 
 		public Task EditJob(Job job) 
 		{
-			//var job_to_change = _context.Jobs.FirstOrDefault(j => j.Id == job.Id);
-			//if (job_to_change != null) 
-			//{ 
-			//	job_to_change.Name = job.Name;
-			//	job_to_change.Description = job.Description;
-			//	job_to_change.Category = job.Category;	
-			//	job_to_change.Requirements = job.Requirements;	
-			//	job_to_change.Location = job.Location;
-			//	job_to_change.Monthlysalary = job.Monthlysalary;	
-			//}
-			_context.Jobs.Attach(job);
-			_context.Entry(job).State = EntityState.Modified;
+			var job_to_update = _context.Jobs.Find(job.Id);
+			if (!(job_to_update is null)) 
+			{
+				//saving creation time 
+				job.Created = job_to_update.Created;
+				_context.Entry(job_to_update).CurrentValues.SetValues(job);
+			}
 			return Task.CompletedTask;
 		}
 	}

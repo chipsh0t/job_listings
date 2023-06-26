@@ -25,6 +25,16 @@
 					<p>Posted on: @Model.Created.ToString("dd.MM.yyyy")</p>
 				</div>
 			</div>
+			<div class="col-2">
+				<a class="btn btn-primary mb-3" role="button" 
+				asp-controller="Jobs" asp-action="UpdateJobListing" asp-route-id="@Model.Id">
+					Update
+				</a>
+				<a class="btn btn-danger mb-3" role="button"
+				   asp-controller="Jobs" asp-action="DeleteJobListing" asp-route-id="@Model.Id">
+					Delete
+				</a>
+			</div>
 		</div>
 	</div>
 </section>

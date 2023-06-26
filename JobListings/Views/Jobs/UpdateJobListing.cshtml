@@ -1,0 +1,60 @@
+﻿@model JobListingsShared.Models.Job
+@{
+    ViewBag.BannerTitle = "Update listing !";
+}
+
+@await Html.PartialAsync("Banner")
+<div class="d-flex justify-content-center align-items-center my-3">
+	<div class="row w-100">
+		<div class="mx-auto col-sm-12 col-md-8 col-sm-6">
+            <form asp-action="UpdateJobListing" asp-controller="Jobs" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mt-10">
+                    <input asp-for="Name" type="text" placeholder="Job name" required class="single-input" autocomplete="off">
+                </div>
+
+                <div class="input-group-icon mt-10">
+                    <div class="icon"><i class="fa fa-filter" aria-hidden="true"></i></div>
+                    <div class="form-select" id="default-select">
+                        <select asp-for="Category">
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <option value="@category">@category</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group-icon mt-10">
+                    <div class="icon"><i class="fa fa-globe" aria-hidden="true"></i></div>
+                    <div class="form-select" id="default-select">
+                        <select asp-for="Location">
+                            @foreach (var location in ViewBag.Locations)
+                            {
+                                <option value="@location">@location</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <textarea asp-for="Description" class="single-textarea" placeholder="Description" required></textarea>
+                </div>
+
+                <div class="mt-10">
+                    <textarea asp-for="Requirements" class="single-textarea" placeholder="Requirements" required></textarea>
+                </div>
+
+                <div class="mt-10 input-group-icon">
+                    <div class="icon"><i class="fa fa-usd" aria-hidden="true"></i></div>
+                    <input asp-for="Monthlysalary" type="number" min="1.0" placeholder="Monthly salary" class="single-input d-inline" autocomplete="off" />
+                </div>
+
+                <input type="submit" class="genric-btn primary radius my-4" value="Update" />
+            </form>
+
+		</div>
+	</div>
+</div>
